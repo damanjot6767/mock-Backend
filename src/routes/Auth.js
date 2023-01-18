@@ -1,5 +1,5 @@
 var express = require('express');
-const UserModel = require('../models/user.model');
+const UserModel = require('../models/user.model.js');
 const argon2 = require("argon2");
 const jwt = require("jsonwebtoken");
 var cookieParser = require('cookie-parser');

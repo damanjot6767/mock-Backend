@@ -2,8 +2,8 @@
 var express = require('express');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-const connect = require('./connect/connect');
-const Auth = require('./routes/Auth');
+const connect = require('./src/connect/connect.js');
+const Auth = require("./src/routes/Auth.js")
 var app = express();
 
 app.use(logger('dev'));
