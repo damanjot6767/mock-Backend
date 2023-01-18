@@ -3,6 +3,7 @@ const UserModel = require('../models/user.model.js');
 const argon2 = require("argon2");
 const jwt = require("jsonwebtoken");
 var cookieParser = require('cookie-parser');
+require("dotenv").config()
 var Auth = express.Router();
 
 Auth.use(cookieParser());
@@ -26,7 +27,7 @@ Auth.post('/login',async(req,res)=>{
        if(exist){
           let exist1 = await argon2.verify(exist.password,password);
           if(exist1){
-            const deatils = jwt.sign({_id:exist._id,name:exist.name,email:exist.email,username:exist.username},"SECRET123456",{expiresIn:"5m"});
+            const deatils = jwt.sign({_id:exist._id,name:exist.name,email:exist.email,username:exist.username},`${process.env.KEY}`,{expiresIn:"5m"});
             res.cookie(deatils);
             res.send({status:true,details:deatils})
           }
