@@ -1,7 +1,7 @@
 
-var express = require('express');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+const express = require('express');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
 require("dotenv").config()
 const connect = require('./src/connect/connect.js');
 const Auth = require("./src/routes/Auth.js");
