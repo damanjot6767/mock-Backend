@@ -48,7 +48,7 @@ AdminAndUser.patch("/updatejob/:id",async function(req, res) {
     const{id} = req.params;
     const {position} = req.body;
     try{
-        let jobs = await JobModel.findByIdAndUpdate({_id:val},{position:position});
+        let jobs = await JobModel.findByIdAndUpdate({_id:id},{position:position});
         res.send({status:"job update successfully!"})
         return;
     }
