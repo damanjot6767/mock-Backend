@@ -72,10 +72,11 @@ AdminAndUser.delete('/deletejob/:id',async(req,res)=>{
 
 //job applied by user
 AdminAndUser.post('/applyjob/:id',async(req,res)=>{
-    let {val} = req.params;
+    let {id} = req.params;
     let {userid}=req.body;
     try{
-        let job = await JobModel.findOne({_id:val});
+        let job = await JobModel.findOne({_id:id});
+        console.log(job)
         let user = await UserModel.findOne({_id:userid});
         let newData = user.applied;
         newData.push(job);
