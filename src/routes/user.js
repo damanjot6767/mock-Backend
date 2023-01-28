@@ -45,22 +45,42 @@ QuizwGame.post('/questions',async function(req, res) {
 
 QuizwGame.post('/score/:id',async(req,res)=>{
     const{id}=req.params;
-    const{correct,wrong}=req.body;
+    let{correct,point}=req.body;
+    point = Number(point);
+         let user = await UserModel.findOne({_id:id});
+         let score = user.score+point;
     try {
-        let user = await UserModel.findOne({_id:id});
-         let score = user.score+1;
-         let u_correct = user.correct;
-         u_correct.push(correct);
-         let u_wrong = user.incorrect;
-         u_wrong.push(wrong);
-         await UserModel.findByIdAndUpdate({_id:id},{score:score,correct:u_correct,incorrect:u_wrong});
-         let newUser = await UserModel.findOne({_id:id});
-        return res.send(newUser)
+         if(point){
+            let u_correct = user.correct;
+            u_correct.push(correct);
+            await UserModel.findByIdAndUpdate({_id:id},{score:score,correct:u_correct});
+            let newUser = await UserModel.findOne({_id:id});
+            return res.send(newUser)
+         }
+         else{
+            let u_wrong = user.incorrect;
+            u_wrong.push(correct);
+            await UserModel.findByIdAndUpdate({_id:id},{score:score,incorrect:u_wrong});
+            let newUser = await UserModel.findOne({_id:id});
+            console.log(newUser);
+            return res.send(newUser)
+        }
+         
     } catch (error) {
-        
+        console.log(error.message)
     }
 })
  
+QuizwGame.get('/score/:id',async(req,res)=>{
+    const{id}=req.params;
+    try {
+        let user = await UserModel.findOne({_id:id});
+        return res.send(user)
+         
+    } catch (error) {
+        console.log(error.message)
+    }
+})
 
 
 module.exports = QuizwGame;
