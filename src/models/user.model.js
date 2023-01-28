@@ -1,12 +1,11 @@
 const {Schema,model} = require("mongoose");
 
 const UserSchema = new Schema({
-   fullname:{type:String,required:true},
-   email:{type:String,required:true,unique:true},
-   password:{type:String,required:true,unique:true},
-   role:{type:String,enum:["admin","user"]},
-   applied:[]
+   name:{type:String,required:true},
+   score:{type:Number,default:0},
+   correct:[],
+   incorrect:[]
 })
 
-const UserModel = new model("auth",UserSchema);
+const UserModel = new model("user",UserSchema);
 module.exports = UserModel;
